@@ -207,10 +207,10 @@ class Lattice(object):
 
         
         if ndType == 2:
-	    uz = u_bc;
+            uz = u_bc;
             rho = self.set_inlet_velocity_bc_macro(fIn,uz)
         elif ndType == 3:
-	    rho = rho_bc
+            rho = rho_bc
             uz = self.set_outlet_density_bc_macro(fIn,rho)
             
 

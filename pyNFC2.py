@@ -161,7 +161,7 @@ class pyNFC_LBM(object):
             else:
                 ndType = 0
 
-            f_o = self.lattice.compute_fOut(f,ndType,self.omega,self.Cs,self.u_bc,sefl.rho_lbm)
+            f_o = self.lattice.compute_fOut(f,ndType,self.omega,self.Cs,self.u_bc,self.rho_lbm)
             self.stream(fOut,f_o,lp)
 
     def stream(self,fOut,f,lp):
@@ -213,7 +213,8 @@ class pyNFC_LBM(object):
                 uy[lp]+=self.ey[spd]*f[lp,spd]
                 uz[lp]+=self.ez[spd]*f[lp,spd]
             ux[lp]/=rho[lp]; uy[lp]/=rho[lp]; uz[lp]/=rho[lp]
-        ux[np.where(self.snl[:self.num_nodes]==1)]=0.;
-        uy[np.where(self.snl[:self.num_nodes]==1)]=0.;
-        uz[np.where(self.snl[:self.num_nodes]==1)]=0.;
-        uz[np.where(self.inl[:self.num_nodes]==1)]=self.u_bc;
+        ux[np.where(self.snl[:self.nnodes]==1)]=0.;
+        uy[np.where(self.snl[:self.nnodes]==1)]=0.;
+        uz[np.where(self.snl[:self.nnodes]==1)]=0.;
+        uz[np.where(self.inl[:self.nnodes]==1)]=self.u_bc;
+        return ux, uy, uz, rho
