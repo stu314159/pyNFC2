@@ -59,7 +59,7 @@ class pyNFC_LBM(object):
         x = (g_nd - z*self.Nx*self.Ny - y*self.Nx)
         return (x,y,z)
 
-    def initailize_node_lists(self):
+    def initialize_node_lists(self):
         """
          initialize inl, onl, snl
         """
@@ -110,7 +110,7 @@ class pyNFC_LBM(object):
         """
             generate the adjacency list indicating who is neighbor to whom
         """ 
-        self.adjacency = np.empty((self.num_local_nodes,self.numSpd),dtype=np.int32) # create the array
+        self.adjacency = np.empty((self.nnodes,self.numSpd),dtype=np.int32) # create the array
         
         # do this the bone-headed way:
         for k in range(self.nnodes):
@@ -119,7 +119,7 @@ class pyNFC_LBM(object):
                 x_t = x + self.ex[spd]; x_t = x_t % self.Nx;
                 y_t = y + self.ey[spd]; y_t = y_t % self.Ny;
                 z_t = z + self.ez[spd]; z_t = z_t % self.Nz;
-                self.adjacency[self.global_to_local[k],spd] = self.get_gInd_XYZ(x_t,y_t,z_t)
+                self.adjacency[k,spd] = self.get_gInd_XYZ(x_t,y_t,z_t)
 
     def take_LBM_timestep(self,isEven):
         """

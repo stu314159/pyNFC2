@@ -243,10 +243,11 @@ class D3Q15Lattice(Lattice):
         self.ez = [0,0,0,0,0,1,-1,1,1,1,1,-1,-1,-1,-1]; self.ez = np.array(self.ez,dtype=np.float32);
 
         self.bbSpd = [0,2,1,4,3,6,5,14,13,12,11,10,9,8,7]
-        self.w = [2./9.,1./9.,1./9,1./9.,1./9.,1./9.,1./9.,
-	       1./72.,1./72.,1./72.,1./72.,
-	       1./72.,1./72.,1./72.,1./72.]
-	self.create_Qflat();
+        self.w = [2./9.,1./9.,1./9,1./9.,1./9.,1./9.,1./9., \
+	             1./72.,1./72.,1./72.,1./72., \
+	             1./72.,1./72.,1./72.,1./72.]
+	    
+        self.create_Qflat();
 
     def set_inlet_velocity_bc_macro(self,f,uz): # not too flexible, but it is what NFC does (one thing at a time)
         """
