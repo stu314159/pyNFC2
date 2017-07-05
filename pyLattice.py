@@ -217,11 +217,11 @@ class Lattice(object):
         if ndType != 1: #solid nodes do not need fEq
             fEq = self.compute_equilibrium(fIn,rho,[ux,uy,uz])        
             if ((ndType == 2) or (ndType == 3)):
-                #self.create_Qflat();
+                self.create_Qflat();
                 fIn = self.regularize_boundary_nodes(fIn[:],fEq)
 
-            #S = self.compute_strain_tensor(fIn,fEq) #<-- this function takes ~90% of the compute time.
-            #omega = self.apply_turbulence_model(omega,Cs,S)
+            S = self.compute_strain_tensor(fIn,fEq) #<-- this function takes ~90% of the compute time.
+            omega = self.apply_turbulence_model(omega,Cs,S)
             f = self.relax(fIn[:],fEq,omega)
         else:
             f = self.bounce_back(fIn[:]);
