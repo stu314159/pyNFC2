@@ -2,3 +2,5 @@
 *.pyc
 *.lbm
 *.b_dat
+*.vtk
+*.mat
