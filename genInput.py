@@ -188,8 +188,5 @@ params.write('%f \n'%Lz_p)
 params.write('%15.14f \n'%t_conv_fact)  # time, length and pressure conversion factors
 params.write('%15.14f \n'%l_conv_fact)
 params.write('%g \n'%p_conv_fact)
+params.close()
     
-    params.close()
-    
-else:
-    print 'Run aborted.  Better luck next time!'

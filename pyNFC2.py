@@ -74,7 +74,7 @@ class pyNFC_LBM(object):
         onl_filename = "onl.lbm"
         onl_f = open(onl_filename,'r')
         numONL = int(onl_f.readline())
-        for in in range(numONL):
+        for k in range(numONL):
             gOUT = int(onl_f.readline());
             self.onl[gOUT] = 1
         onl_f.close()
