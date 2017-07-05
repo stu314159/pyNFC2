@@ -163,3 +163,47 @@ class pyNFC_LBM(object):
             tgtNd = self.adjacency[lp,spd]
             fOut[tgtNd,spd] = f[spd]
 
+    def write_data(self,isEven):
+        """
+          generate binary data files: ux[dump #].b_dat, uy[dump #].b_dat, 
+          uz[dump #].b_dat, and density[dump #].b_dat
+        """
+        ux, uy, uz, rho = self.compute_local_data(isEven);
+
+        # create file names
+        ux_fn = self.vtk_ux_stub + str(self.vtk_dump_num) + self.vtk_suffix
+        uy_fn = self.vtk_uy_stub + str(self.vtk_dump_num) + self.vtk_suffix
+        uz_fn = self.vtk_uz_stub + str(self.vtk_dump_num) + self.vtk_suffix
+        rho_fn = self.vtk_rho_stub + str(self.vtk_dump_num) + self.vtk_suffix
+        
+        ux.astype('float32').tofile(ux_fn)
+        uy.astype('float32').tofile(uy_fn)
+        uz.astype('float32').tofile(uz_fn)
+        rho.astype('float32').tofile(rho_fn)
+        self.vtk_dump_num += 1
+
+    def compute_local_data(self,isEven):
+        """
+         compute macroscopic data from density distribution data for all lattice points
+
+        """
+
+        if isEven:
+            f = self.fEven;
+        else:
+            f = self.fOdd;
+
+        ux = np.zeros([self.nnodes],dtype=np.float32)
+        uy = rho = uz = np.zeros_like(ux)
+
+        for lp in self.all_nodes:
+            for spd in range(self.numSpd):
+                rho[lp]+=f[lp,spd]
+                ux[lp]+=self.ex[spd]*f[lp,spd]
+                uy[lp]+=self.ey[spd]*f[lp,spd]
+                uz[lp]+=self.ez[spd]*f[lp,spd]
+            ux[lp]/=rho[lp]; uy[lp]/=rho[lp]; uz[lp]/=rho[lp]
+        ux[np.where(self.snl[:self.num_nodes]==1)]=0.;
+        uy[np.where(self.snl[:self.num_nodes]==1)]=0.;
+        uz[np.where(self.snl[:self.num_nodes]==1)]=0.;
+        uz[np.where(self.inl[:self.num_nodes]==1)]=self.u_bc;
