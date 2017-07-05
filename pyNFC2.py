@@ -44,12 +44,22 @@ class pyNFC_LBM(object):
         self.gen_adjacency() 
         self.allocate_data_arrays()
         self.initialize_node_lists()
+        self.initialize_lattice_points()
 
         self.vtk_dump_num = 0;
         self.vtk_ux_stub = 'ux'; self.vtk_uy_stub = 'uy'; self.vtk_uz_stub = 'uz'
         self.vtk_rho_stub = 'density'
         self.vtk_suffix = '.b_dat'
 
+    def initialize_lattice_points(self):
+        """
+        set density distribution values to zero-speed lattice everywhere
+        """
+        for nd in range(self.nnodes):
+            for spd in range(self.numSpd):
+                self.fEven[nd,spd] = self.rho_lbm*self.w[spd]
+                self.fOdd[nd,spd]=self.rho_lbm*self.w[spd]
+    
     def get_XYZ_index(self,g_nd): # this will depend upon a global geometry structure like a brick
         """
          get X,Y, and Z index for a given
