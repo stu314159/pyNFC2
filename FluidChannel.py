@@ -4,7 +4,6 @@ Class implementation file for the Python class FluidChannel
 Depends on vtkHelper module for geometry visualization functionality
 """
 import math
-import argparse
 import numpy as np
 from vtkHelper import saveStructuredPointsVTK_ascii as writeVTK
 import scipy.io
@@ -690,9 +689,9 @@ class FluidChannel:
    
         Y,Z,X = np.meshgrid(y,z,x);
     
-        self.x = np.reshape(X,self.nnodes)
-        self.y = np.reshape(Y,self.nnodes)
-        self.z = np.reshape(Z,self.nnodes)
+        self.x = np.reshape(X,int(self.nnodes))
+        self.y = np.reshape(Y,int(self.nnodes))
+        self.z = np.reshape(Z,int(self.nnodes))
 
         # get fluid properties from the included fluid library
         self.rho_p, self.nu_p = fluid_properties(fluid)
@@ -756,17 +755,17 @@ class FluidChannel:
          write node lists to properly formatted VTK files
         """
         print "Creating boundary condition arrays"
-        obst_array = np.zeros(self.nnodes)
+        obst_array = np.zeros(int(self.nnodes))
         obst_array[list(self.obst_list)] = 100.
 
         #print type(self.inlet_list)
-        inlet_array = np.zeros(self.nnodes)
+        inlet_array = np.zeros(int(self.nnodes))
         inlet_array[list(self.inlet_list)] = 200.
 
-        outlet_array = np.zeros(self.nnodes)
+        outlet_array = np.zeros(int(self.nnodes))
         outlet_array[list(self.outlet_list)] = 300.
 
-        solid_array = np.zeros(self.nnodes)
+        solid_array = np.zeros(int(self.nnodes))
         solid_array[list(self.solid_list)] = 500.
         
         dims = [int(self.Nx), int(self.Ny), int(self.Nz)]

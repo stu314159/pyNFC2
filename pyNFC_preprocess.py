@@ -5,9 +5,7 @@ pre-processor file for pyNFC2.  Define geometry and discretization parameters
 """
 
 import FluidChannel as fc
-import numpy as np
-import scipy 
-import math
+
 
 Lx_p = 1.0
 Ly_p = 1.0

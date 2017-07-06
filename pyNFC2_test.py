@@ -3,13 +3,9 @@
  testing implementation of pyNFC2
 """
 
-
-import numpy as np
-import math
 import time
-from vtkHelper import saveVelocityAndPressureVTK_binary as writeVTK
 import pyNFC2
-import FluidChannel as fc
+
 # Information about the LBM run that produced the data - I should get this from params.lbm
 # Read data from params.lbm
 input_file_name = 'params.lbm'
