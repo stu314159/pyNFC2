@@ -72,8 +72,13 @@ XX = np.reshape(X,numEl)
 YY = np.reshape(Y,numEl)
 ZZ = np.reshape(Z,numEl)
 
+if rank==0:
+    XX.astype(np.float32).tofile('xdata.b_dat')
+    YY.astype(np.float32).tofile('ydata.b_dat')
+    ZZ.astype(np.float32).tofile('zdata.b_dat')
+
 # compute the number of data dumps I expect to process
-nDumps = (Num_ts-Warmup_ts)/plot_freq # Num_ts/plot_freq updates
+nDumps = (Num_ts-Warmup_ts)/plot_freq +1 # Num_ts/plot_freq updates
 
 for i in range(rank,nDumps,size):
     # say something comforting
