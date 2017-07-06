@@ -5,7 +5,6 @@ implementation file for pyNFC2 module
 """
 
 import numpy as np
-from vtkHelper import saveStructuredPointsVTK_ascii as writeVTKpt
 import pyLattice as pl
 
 class pyNFC_LBM(object):
