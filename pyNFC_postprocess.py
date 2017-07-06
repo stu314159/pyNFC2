@@ -19,7 +19,6 @@ pressure and velocity magnitude scalar data and velocity vector data.
 
 from mpi4py import MPI
 import numpy as np
-import math
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()

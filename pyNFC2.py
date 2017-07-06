@@ -151,14 +151,14 @@ class pyNFC_LBM(object):
 
         for lp in lp_list:
             f = fIn[lp,:]
+            ndType = 0
             if self.inl[lp]==1:
                 ndType = 2
             if self.onl[lp]==1:
                 ndType = 3
             if self.snl[lp]==1:
                 ndType = 1
-            else:
-                ndType = 0
+           
 
             f_o = self.lattice.compute_fOut(f,ndType,self.omega,self.Cs,self.u_bc,self.rho_lbm)
             self.stream(fOut,f_o,lp)
