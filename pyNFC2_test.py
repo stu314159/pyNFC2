@@ -41,6 +41,8 @@ time1 = time.time()
 
 for ts in range(Num_ts):
     isEven=(ts%2==0)
+    if (ts%ts_rep_freq == 0):
+        print "executing time step %d."%(ts)
     myLBM.take_LBM_timestep(isEven)
 
     if((ts%plot_freq == 0)):
