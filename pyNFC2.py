@@ -203,7 +203,9 @@ class pyNFC_LBM(object):
             f = self.fOdd;
 
         ux = np.zeros([self.nnodes],dtype=np.float32)
-        uy = rho = uz = np.zeros_like(ux)
+        uy = np.zeros([self.nnodes],dtype=np.float32)
+        uz = np.zeros([self.nnodes],dtype=np.float32)
+        rho = np.zeros([self.nnodes],dtype=np.float32)
 
         for lp in self.all_nodes:
             for spd in range(self.numSpd):
