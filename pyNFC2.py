@@ -207,13 +207,17 @@ class pyNFC_LBM(object):
         uz = np.zeros([self.nnodes],dtype=np.float32)
         rho = np.zeros([self.nnodes],dtype=np.float32)
 
-        for lp in self.all_nodes:
-            for spd in range(self.numSpd):
-                rho[lp]+=f[lp,spd]
-                ux[lp]+=self.ex[spd]*f[lp,spd]
-                uy[lp]+=self.ey[spd]*f[lp,spd]
-                uz[lp]+=self.ez[spd]*f[lp,spd]
-            ux[lp]/=rho[lp]; uy[lp]/=rho[lp]; uz[lp]/=rho[lp]
+        rho = np.sum(f,axis=1)
+        ux = np.dot(f,self.ex)/rho
+        uy = np.dot(f,self.ey)/rho
+        uz = np.dot(f,self.ez)/rho
+#        for lp in self.all_nodes:
+#            for spd in range(self.numSpd):
+#                rho[lp]+=f[lp,spd]
+#                ux[lp]+=self.ex[spd]*f[lp,spd]
+#                uy[lp]+=self.ey[spd]*f[lp,spd]
+#                uz[lp]+=self.ez[spd]*f[lp,spd]
+#            ux[lp]/=rho[lp]; uy[lp]/=rho[lp]; uz[lp]/=rho[lp]
         ux[np.where(self.snl[:self.nnodes]==1)]=0.;
         uy[np.where(self.snl[:self.nnodes]==1)]=0.;
         uz[np.where(self.snl[:self.nnodes]==1)]=0.;
