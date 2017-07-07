@@ -113,13 +113,9 @@ class Lattice(object):
 
         """
         
-        numSpd = self.get_numSpd();
         Pi1_flat = self.compute_Pi1_flat(f,fEq)
-        
-        for spd in range(numSpd):
-            ft = self.w[spd]*(9./2.)*np.dot(self.Qflat[spd,:],Pi1_flat)
-            f[spd] = fEq[spd] + ft
-
+        ft = (9./2.)*self.w*np.dot(self.Qflat,Pi1_flat)
+        f = fEq + ft
         return f[:]
 
     def compute_strain_tensor(self,f,fEq):
