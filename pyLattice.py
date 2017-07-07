@@ -97,11 +97,12 @@ class Lattice(object):
           generate the 3 x 3 x numSpd tensor and store in flattened array
           format.  (see pg 46 Latt dissertation for regularization algorithm adapted)
         """
-        numSpd = self.get_numSpd();
-        Pi1_flat = np.zeros([9],dtype=np.float32) # 9 for any 3-D lattice
-        for spd in range(numSpd):
-            Pi1_flat+=(f[spd]-fEq[spd])*self.Qflat[spd,:]
+#        numSpd = self.get_numSpd();
+#        Pi1_flat = np.zeros([9],dtype=np.float32) # 9 for any 3-D lattice
+#        for spd in range(numSpd):
+#            Pi1_flat+=(f[spd]-fEq[spd])*self.Qflat[spd,:]
 
+        Pi1_flat = np.sum(np.outer(self.Qflat,f-fEq),axis=1)        
         return Pi1_flat[:]
 
 
