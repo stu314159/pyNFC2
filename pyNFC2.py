@@ -5,7 +5,7 @@ implementation file for pyNFC2 module
 """
 
 import numpy as np
-import pyLattice as pl
+import pyLattice_nb as pl_nb
 
 class pyNFC_LBM(object):
     def __init__(self,Nx,Ny,Nz,rho_lbm,u_bc,omega,Cs,lattice_type='D3Q15',):
@@ -27,11 +27,11 @@ class pyNFC_LBM(object):
         
         
         if lattice_type == 'D3Q15':
-            self.lattice = pl.D3Q15Lattice(self.Nx, self.Ny, self.Nz)
+            self.lattice = pl_nb.D3Q15Lattice(self.Nx, self.Ny, self.Nz)
         elif lattice_type == 'D3Q19':
-            self.lattice = pl.D3Q19Lattice(self.Nx, self.Ny, self.Nz)
+            self.lattice = pl_nb.D3Q19Lattice(self.Nx, self.Ny, self.Nz)
         else:
-            self.lattice = pl.D3Q27Lattice(self.Nx, self.Ny, self.Nz)
+            self.lattice = pl_nb.D3Q27Lattice(self.Nx, self.Ny, self.Nz)
 
         self.numSpd = self.lattice.get_numSpd()
         self.ex = np.array(self.lattice.get_ex(),dtype=np.int32);
