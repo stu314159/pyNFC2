@@ -72,10 +72,8 @@ class Lattice(object):
         numSpd = self.get_numSpd();
         ux = u[0]; uy = u[1]; uz = u[2];
         f_eq = np.zeros(numSpd,dtype = np.float32)
-        for spd in range(numSpd):
-             cu = 3.*(self.ex[spd]*ux + self.ey[spd]*uy + self.ez[spd]*uz)
-             f_eq[spd] = self.w[spd]*rho*(1. + cu + 0.5*(cu*cu) - 
-                           3./2.*(ux*ux + uy*uy + uz*uz)) 
+        cu = 3.*(self.ex*ux + self.ey*uz + self.ez*uz)
+        f_eq = self.w*rho*(1.+cu + 0.5*(cu*cu) - 3./2.*(ux*ux + uy*uy +uz*uz))
 
         return f_eq[:]   
 
