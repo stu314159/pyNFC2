@@ -77,10 +77,13 @@ class D3Q15Lattice(object):
         numSpd = self.get_numSpd();
         ux = u[0]; uy = u[1]; uz = u[2];
         f_eq = np.zeros(numSpd,dtype = np.float32)
-        for spd in range(numSpd):
-             cu = 3.*(self.ex[spd]*ux + self.ey[spd]*uy + self.ez[spd]*uz)
-             f_eq[spd] = self.w[spd]*rho*(1. + cu + 0.5*(cu*cu) - 
-                           3./2.*(ux*ux + uy*uy + uz*uz)) 
+        cu = 3.*(self.ex*ux+self.ey*uy+self.ez*uz)
+        f_eq = rho*np.multiply(self.w,(1.+cu+0.5*(np.multiply(cu,cu))
+               - 3./2.*(ux*ux + uy*uy + uz*uz)))
+#        for spd in range(numSpd):
+#             cu = 3.*(self.ex[spd]*ux + self.ey[spd]*uy + self.ez[spd]*uz)
+#             f_eq[spd] = self.w[spd]*rho*(1. + cu + 0.5*(cu*cu) - 
+#                           3./2.*(ux*ux + uy*uy + uz*uz)) 
 
         return f_eq[:]   
 
@@ -224,8 +227,8 @@ class D3Q15Lattice(object):
             if ((ndType == 2) or (ndType == 3)):
                 fIn = self.regularize_boundary_nodes(fIn[:],fEq)
 
-            S = self.compute_strain_tensor(fIn,fEq) #<-- this function takes ~90% of the compute time.
-            omega = self.apply_turbulence_model(omega,Cs,S)
+            #S = self.compute_strain_tensor(fIn,fEq) #<-- this function takes ~90% of the compute time.
+            #omega = self.apply_turbulence_model(omega,Cs,S)
             f = self.relax(fIn[:],fEq,omega)
         else:
             f = self.bounce_back(fIn[:]);

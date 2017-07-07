@@ -72,8 +72,10 @@ class Lattice(object):
         numSpd = self.get_numSpd();
         ux = u[0]; uy = u[1]; uz = u[2];
         f_eq = np.zeros(numSpd,dtype = np.float32)
-        cu = 3.*(self.ex*ux + self.ey*uz + self.ez*uz)
-        f_eq = self.w*rho*(1.+cu + 0.5*(cu*cu) - 3./2.*(ux*ux + uy*uy +uz*uz))
+        for spd in range(numSpd):
+             cu = 3.*(self.ex[spd]*ux + self.ey[spd]*uy + self.ez[spd]*uz)
+             f_eq[spd] = self.w[spd]*rho*(1. + cu + 0.5*(cu*cu) - 
+                           3./2.*(ux*ux + uy*uy + uz*uz)) 
 
         return f_eq[:]   
 
@@ -97,12 +99,12 @@ class Lattice(object):
           generate the 3 x 3 x numSpd tensor and store in flattened array
           format.  (see pg 46 Latt dissertation for regularization algorithm adapted)
         """
-#        numSpd = self.get_numSpd();
-#        Pi1_flat = np.zeros([9],dtype=np.float32) # 9 for any 3-D lattice
-#        for spd in range(numSpd):
-#            Pi1_flat+=(f[spd]-fEq[spd])*self.Qflat[spd,:]
+        numSpd = self.get_numSpd();
+        Pi1_flat = np.zeros([9],dtype=np.float32) # 9 for any 3-D lattice
+        for spd in range(numSpd):
+            Pi1_flat+=(f[spd]-fEq[spd])*self.Qflat[spd,:]
 
-        Pi1_flat = np.sum(np.outer(self.Qflat,f-fEq),axis=1)        
+#        Pi1_flat = np.sum(np.outer(self.Qflat,f-fEq),axis=1)        
         return Pi1_flat[:]
 
 
