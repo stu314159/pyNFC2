@@ -217,8 +217,8 @@ class Lattice(object):
             if ((ndType == 2) or (ndType == 3)):
                 fIn = self.regularize_boundary_nodes(fIn[:],fEq)
 
-            S = self.compute_strain_tensor(fIn,fEq) #<-- this function takes ~90% of the compute time.
-            omega = self.apply_turbulence_model(omega,Cs,S)
+            #S = self.compute_strain_tensor(fIn,fEq) #<-- this function takes ~90% of the compute time.
+            #omega = self.apply_turbulence_model(omega,Cs,S)
             f = self.relax(fIn[:],fEq,omega)
         else:
             f = self.bounce_back(fIn[:]);
