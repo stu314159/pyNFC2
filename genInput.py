@@ -104,7 +104,7 @@ obstFilename = 'snl.lbm'
 obstFile = open(obstFilename,'w')
 obstFile.write('%i \n'%len(snl))
 for i in range(len(snl)):
-    nd = int(snl[i]); nd=nd-1;# make snl node numbers 0-based
+    nd = int(snl[i]); nd=nd;# make snl node numbers 0-based
     obstFile.write('%i \n'% nd) 
 obstFile.close()
 
@@ -114,7 +114,7 @@ inletFileName = 'inl.lbm'
 inletFile = open(inletFileName,'w')
 inletFile.write('%i \n'%len(inl))
 for i in range(len(inl)):
-    nd = int(inl[i]); nd = nd-1;#make inl node numbers 0-based
+    nd = int(inl[i]); nd = nd;#make inl node numbers 0-based
     inletFile.write('%i \n'% nd) 
 inletFile.close()
 
@@ -124,7 +124,7 @@ outletFileName = 'onl.lbm'
 outletFile = open(outletFileName,'w')
 outletFile.write('%i \n'%len(onl))
 for i in range(len(onl)):
-    nd = int(onl[i]); nd = nd-1;#make onl node numbers 0-based
+    nd = int(onl[i]); nd = nd;#make onl node numbers 0-based
     outletFile.write('%i \n'% nd) 
 outletFile.close()
 
